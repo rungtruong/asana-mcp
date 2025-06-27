@@ -37,10 +37,17 @@ async function listTasks(projectId = null) {
     const targetProjectId = projectId || PROJECT_ID;
     console.debug(`Listing tasks from project ${targetProjectId}`);
     
+    // First, get the list of tasks with basic info
     const response = await axios.get(
       `${ASANA_BASE_URL}/projects/${targetProjectId}/tasks`,
-      { headers: getHeaders() }
+      { 
+        headers: getHeaders(),
+        params: {
+          opt_fields: 'gid,name,completed,due_on,assignee,notes'
+        }
+      }
     );
+    
     return response.data;
   } catch (error) {
     console.debug('Error listing tasks:', error.response?.data || error.message);
@@ -84,6 +91,27 @@ async function completeTask(taskId) {
   }
 }
 
+// Get Task Details
+async function getTask(taskId) {
+  try {
+    console.debug(`Getting details for task ${taskId}`);
+    
+    const response = await axios.get(
+      `${ASANA_BASE_URL}/tasks/${taskId}`,
+      { 
+        headers: getHeaders(),
+        params: {
+          opt_fields: 'gid,name,completed,due_on,assignee,notes,created_at,modified_at,projects'
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.debug('Error getting task details:', error.response?.data || error.message);
+    throw error;
+  }
+}
+
 // Delete Task
 async function deleteTask(taskId) {
   try {
@@ -104,6 +132,7 @@ async function deleteTask(taskId) {
 export {
   createTask,
   listTasks,
+  getTask,
   updateTask,
   completeTask,
   deleteTask

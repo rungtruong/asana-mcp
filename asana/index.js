@@ -14,6 +14,7 @@ export const updateProject = projectsApi.updateProject;
 
 export const createTask = tasksApi.createTask;
 export const listTasks = tasksApi.listTasks;
+export const getTask = tasksApi.getTask;
 export const updateTask = tasksApi.updateTask;
 export const completeTask = tasksApi.completeTask;
 export const deleteTask = tasksApi.deleteTask;

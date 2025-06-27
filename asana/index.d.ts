@@ -10,6 +10,7 @@ export function getHeaders(): { Authorization: string; 'Content-Type': string };
 // Tasks exports
 export function createTask(name: string, notes?: string, dueDate?: string | null, assignee?: string | null, projectId?: string | null): Promise<any>;
 export function listTasks(projectId?: string | null): Promise<any>;
+export function getTask(taskId: string): Promise<any>;
 export function updateTask(taskId: string, updatedFields: any): Promise<any>;
 export function completeTask(taskId: string): Promise<any>;
 export function deleteTask(taskId: string): Promise<any>;
