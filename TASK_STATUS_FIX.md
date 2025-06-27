@@ -24,6 +24,8 @@ Sau khi sửa đổi:
 - ✓ Tasks đã hoàn thành hiển thị dấu ✓ (màu xanh)
 - ✗ Tasks chưa hoàn thành hiển thị dấu ✗ (màu đỏ)
 - Thông tin trạng thái được lấy trực tiếp từ Asana API
+- Hiển thị thông tin assignee (người được giao task) trong cột riêng biệt
+- Cột assignee được đặt trước cột Completed để dễ theo dõi
 
 ## Test
 

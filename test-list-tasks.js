@@ -13,13 +13,14 @@ async function testListTasks() {
     
     if (result.data && Array.isArray(result.data)) {
       console.log('\n=== Formatted Task List ===');
-      console.log('| ID | Name | Completed | Due Date |');
-      console.log('|---|------|-----------|----------|');
+      console.log('| ID | Name | Assignee | Completed | Due Date |');
+      console.log('|---|------|----------|-----------|----------|');
       
       result.data.forEach(task => {
+        const assignee = task.assignee?.name || 'Unassigned';
         const completedStatus = task.completed ? '✓' : '✗';
         const dueDate = task.due_on || 'No due date';
-        console.log(`| ${task.gid} | ${task.name} | ${completedStatus} | ${dueDate} |`);
+        console.log(`| ${task.gid} | ${task.name} | ${assignee} | ${completedStatus} | ${dueDate} |`);
       });
       
       console.log(`\nTotal tasks: ${result.data.length}`);

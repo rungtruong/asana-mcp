@@ -109,6 +109,7 @@ server.tool(
           return {
             id: task.gid,
             name: task.name,
+            assignee: task.assignee?.name || "Unassigned",
             completed: task.completed ? "✓" : "✗",
             dueDate: task.due_on || "No due date"
           };
@@ -120,11 +121,11 @@ server.tool(
         if (taskList.length === 0) {
           responseText += "No tasks found.";
         } else {
-          responseText += "| ID | Name | Completed | Due Date |\n";
-          responseText += "|---|------|-----------|----------|\n";
+          responseText += "| ID | Name | Assignee | Completed | Due Date |\n";
+          responseText += "|---|------|----------|-----------|----------|\n";
           
           taskList.forEach((task: any) => {
-            responseText += `| ${task.id} | ${task.name} | ${task.completed} | ${task.dueDate} |\n`;
+            responseText += `| ${task.id} | ${task.name} | ${task.assignee} | ${task.completed} | ${task.dueDate} |\n`;
           });
         }
         

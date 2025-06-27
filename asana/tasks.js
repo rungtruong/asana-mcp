@@ -43,7 +43,7 @@ async function listTasks(projectId = null) {
       { 
         headers: getHeaders(),
         params: {
-          opt_fields: 'gid,name,completed,due_on,assignee,notes'
+          opt_fields: 'gid,name,completed,due_on,assignee.name,notes'
         }
       }
     );
@@ -101,7 +101,7 @@ async function getTask(taskId) {
       { 
         headers: getHeaders(),
         params: {
-          opt_fields: 'gid,name,completed,due_on,assignee,notes,created_at,modified_at,projects'
+          opt_fields: 'gid,name,completed,due_on,assignee.name,notes,created_at,modified_at,projects'
         }
       }
     );
