@@ -18,8 +18,6 @@
     "start": "node --loader ts-node/esm src/index.ts",
     "build": "tsc",
     "dev": "nodemon --exec node --loader ts-node/esm src/index.ts",
-    "start:old": "node dist/server-fastmcp.js",
-    "dev:old": "tsc -w & node --watch dist/server-fastmcp.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "node dist/client.js",
     "client:create": "node dist/client.js create-task",

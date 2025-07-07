@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "asana": {
+      "command": "node",
+      "args": [
+        "/Users/foresttruong/Desktop/Project/mcp/asana-mcp/dist/index.js"
+      ],
+      "env": {
+        "ASANA_ACCESS_TOKEN": "YOUR_ASANA_ACCESS_TOKEN",
+        "ASANA_WORKSPACE_ID": "YOUR_ASANA_WORKSPACE_ID",
+        "ASANA_PROJECT_ID": "YOUR_ASANA_PROJECT_ID"
+      }
+    }
+  }
+}

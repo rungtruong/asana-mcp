@@ -61,11 +61,6 @@ npm run build
 npm start
 ```
 
-### Legacy Server (for reference)
-```bash
-npm run start:old
-```
-
 ## Available Tools
 
 ### Task Management
@@ -147,10 +142,6 @@ npm run start:old
 1. Add service methods in `src/core/services/asana/asana-service.ts`
 2. Create tool definitions in `src/core/tools/asana-tools.ts`
 3. Register tools in `src/core/tools.ts`
-
-### Legacy Files
-
-Legacy implementation files are preserved in the `legacy/` directory for reference.
 
 ## License
 
