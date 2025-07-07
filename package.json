@@ -1,14 +1,25 @@
 {
-  "name": "mcp-asana",
-  "version": "1.0.0",
-  "main": "dist/server-fastmcp.js",
+  "name": "asana-mcp",
+  "module": "src/index.ts",
   "type": "module",
+  "version": "1.0.0",
+  "description": "Asana MCP Server",
+  "private": false,
+  "main": "build/index.js",
+  "files": [
+    "src/",
+    "build/",
+    ".gitignore",
+    "tsconfig.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
+    "start": "node --loader ts-node/esm src/index.ts",
     "build": "tsc",
-    "start": "node dist/server-fastmcp.js",
-    "start:old": "node dist/server.js",
-    "dev": "tsc -w & node --watch dist/server-fastmcp.js",
-    "dev:old": "tsc -w & node --watch dist/server.js",
+    "dev": "nodemon --exec node --loader ts-node/esm src/index.ts",
+    "start:old": "node dist/server-fastmcp.js",
+    "dev:old": "tsc -w & node --watch dist/server-fastmcp.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "node dist/client.js",
     "client:create": "node dist/client.js create-task",
@@ -19,10 +30,19 @@
     "client:update-subtask": "node dist/client.js update-subtask",
     "client:delete-subtask": "node dist/client.js delete-subtask"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "asana",
+    "server",
+    "ai",
+    "agent"
+  ],
+  "author": "foresttruong",
+  "license": "MIT",
   "dependencies": {
     "fastmcp": "^3.8.2",
     "axios": "^1.8.3",
@@ -34,6 +54,11 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
+    "nodemon": "^3.0.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
