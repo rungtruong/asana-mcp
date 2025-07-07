@@ -1,12 +1,14 @@
 {
   "name": "mcp-asana",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "dist/server-fastmcp.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "tsc -w & node --watch dist/server.js",
+    "start": "node dist/server-fastmcp.js",
+    "start:old": "node dist/server.js",
+    "dev": "tsc -w & node --watch dist/server-fastmcp.js",
+    "dev:old": "tsc -w & node --watch dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "node dist/client.js",
     "client:create": "node dist/client.js create-task",
@@ -22,7 +24,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.7.0",
+    "fastmcp": "^3.8.2",
     "axios": "^1.8.3",
     "commander": "^11.1.0",
     "dotenv": "^16.4.7",
