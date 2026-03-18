@@ -31,3 +31,4 @@ export const createSubtask = subtasksApi.createSubtask;
 export const listSubtasks = subtasksApi.listSubtasks;
 export const updateSubtask = subtasksApi.updateSubtask;
 export const deleteSubtask = subtasksApi.deleteSubtask;
+export const setSubtaskParent = subtasksApi.setSubtaskParent;

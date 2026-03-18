@@ -76,10 +76,32 @@ async function deleteSubtask(subtaskId) {
   }
 }
 
+// Reorder / Set Subtask Parent
+async function setSubtaskParent(subtaskId, parentTaskId, insertBefore = null, insertAfter = null) {
+  try {
+    const requestData = { parent: parentTaskId };
+    if (insertBefore) requestData.insert_before = insertBefore;
+    if (insertAfter) requestData.insert_after = insertAfter;
+
+    console.debug(`Reordering subtask ${subtaskId} in parent ${parentTaskId}`);
+    
+    const response = await axios.post(
+      `${ASANA_BASE_URL}/tasks/${subtaskId}/setParent`,
+      { data: requestData },
+      { headers: getHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    console.debug('Error reordering subtask:', error.response?.data || error.message);
+    throw error;
+  }
+}
+
 // Export functions
 export {
   createSubtask,
   listSubtasks,
   updateSubtask,
-  deleteSubtask
+  deleteSubtask,
+  setSubtaskParent
 };

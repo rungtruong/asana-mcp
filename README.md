@@ -75,6 +75,7 @@ npm start
 - `list-subtasks` - List subtasks for a parent task
 - `update-subtask` - Update an existing subtask
 - `delete-subtask` - Delete a subtask
+- `reorder-subtask` - Reorder a subtask by changing its position
 
 ### Project Management
 - `create-project` - Create a new Asana project

@@ -182,6 +182,17 @@ export class AsanaService {
     }
   }
 
+  async setSubtaskParent(subtaskId: string, parentTaskId: string, insertBefore?: string, insertAfter?: string) {
+    await this.ensureInitialized();
+    
+    if (this.asanaApi) {
+      return await this.asanaApi.setSubtaskParent(subtaskId, parentTaskId, insertBefore, insertAfter);
+    } else {
+      // Stub implementation
+      return { data: {} };
+    }
+  }
+
   // Project methods
   async createProject(name: string, notes?: string, color?: string, isPublic?: boolean, workspaceId?: string) {
     await this.ensureInitialized();
@@ -238,11 +249,11 @@ export class AsanaService {
     }
   }
 
-  async addTaskToSection(sectionId: string, taskId: string) {
+  async addTaskToSection(sectionId: string, taskId: string, insertBefore?: string, insertAfter?: string) {
     await this.ensureInitialized();
     
     if (this.asanaApi) {
-      return await this.asanaApi.addTaskToSection(sectionId, taskId);
+      return await this.asanaApi.addTaskToSection(sectionId, taskId, insertBefore, insertAfter);
     } else {
       // Stub implementation
       return { data: {} };

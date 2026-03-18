@@ -112,7 +112,7 @@ async function listSections(projectId) {
  * @param {string} taskId - The ID of the task to add
  * @returns {Promise<Object>} - Response data
  */
-async function addTaskToSection(sectionId, taskId) {
+async function addTaskToSection(sectionId, taskId, insertBefore = null, insertAfter = null) {
   try {
     // Validate required parameters
     if (!sectionId) {
@@ -123,15 +123,21 @@ async function addTaskToSection(sectionId, taskId) {
       throw new Error('Task ID is required');
     }
     
-    console.debug(`Adding task ${taskId} to section ${sectionId}`);
+    console.debug(`Adding/moving task ${taskId} to section ${sectionId}`);
     
+    const requestData = {
+      task: taskId
+    };
+
+    if (insertBefore) {
+      requestData.insert_before = insertBefore;
+    } else if (insertAfter) {
+      requestData.insert_after = insertAfter;
+    }
+
     const response = await axios.post(
       `${ASANA_BASE_URL}/sections/${sectionId}/addTask`,
-      { 
-        data: { 
-          task: taskId 
-        } 
-      },
+      { data: requestData },
       { headers: getHeaders() }
     );
     return response.data;

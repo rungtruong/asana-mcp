@@ -325,6 +325,31 @@ export function registerAsanaTools(server: FastMCP) {
     }
   });
 
+  server.addTool({
+    name: "reorder-subtask",
+    description: "Reorder a subtask by changing its position relative to other subtasks",
+    parameters: z.object({
+      subtaskId: z.string().describe("Subtask ID to reorder"),
+      parentTaskId: z.string().describe("Parent task ID"),
+      insertBefore: z.string().optional().describe("Subtask ID to insert before"),
+      insertAfter: z.string().optional().describe("Subtask ID to insert after")
+    }),
+    execute: async ({ subtaskId, parentTaskId, insertBefore, insertAfter }) => {
+      console.debug(`Reordering subtask: ${subtaskId} under parent: ${parentTaskId}`);
+      
+      try {
+        await asanaService.setSubtaskParent(subtaskId, parentTaskId, insertBefore, insertAfter);
+        console.debug("Subtask reordered successfully");
+        
+        const suffix = asanaService.isRealApiAvailable() ? "" : " (stub)";
+        return `Subtask ${subtaskId} reordered successfully under parent ${parentTaskId}${suffix}`;
+      } catch (error: any) {
+        console.debug("Error reordering subtask:", error);
+        throw new Error(`Error reordering subtask: ${error.message || 'Unknown error'}`);
+      }
+    }
+  });
+
   // Project Tools
   server.addTool({
     name: "create-project",
@@ -444,23 +469,30 @@ export function registerAsanaTools(server: FastMCP) {
 
   server.addTool({
     name: "add-task-to-section",
-    description: "Add a task to a specific section",
+    description: "Add a task to a specific section, or move a task to a new position within the section",
     parameters: z.object({
       sectionId: z.string().describe("Section ID"),
-      taskId: z.string().describe("Task ID")
+      taskId: z.string().describe("Task ID"),
+      insertBefore: z.string().optional().describe("Task ID to insert before (for reordering)"),
+      insertAfter: z.string().optional().describe("Task ID to insert after (for reordering)")
     }),
-    execute: async ({ sectionId, taskId }) => {
-      console.debug(`Adding task ${taskId} to section ${sectionId}`);
+    execute: async ({ sectionId, taskId, insertBefore, insertAfter }) => {
+      console.debug(`Adding/moving task ${taskId} to section ${sectionId}`);
+      if (insertBefore) console.debug(`Insert before: ${insertBefore}`);
+      if (insertAfter) console.debug(`Insert after: ${insertAfter}`);
       
       try {
-        const result = await asanaService.addTaskToSection(sectionId, taskId);
-        console.debug("Task added to section successfully");
+        const result = await asanaService.addTaskToSection(sectionId, taskId, insertBefore, insertAfter);
+        console.debug("Task positioned in section successfully");
         
         const suffix = asanaService.isRealApiAvailable() ? "" : " (stub implementation)";
-        return `Task ${taskId} added to section ${sectionId} successfully${suffix}`;
+        let actionMsg = "added to";
+        if (insertBefore || insertAfter) actionMsg = "moved within";
+        
+        return `Task ${taskId} ${actionMsg} section ${sectionId} successfully${suffix}`;
       } catch (error: any) {
-        console.debug("Error adding task to section:", error);
-        throw new Error(`Error adding task to section: ${error.message || error.originalResponse?.errors?.[0]?.message || 'Unknown error'}`);
+        console.debug("Error adding/moving task in section:", error);
+        throw new Error(`Error adding/moving task in section: ${error.message || error.originalResponse?.errors?.[0]?.message || 'Unknown error'}`);
       }
     }
   });
