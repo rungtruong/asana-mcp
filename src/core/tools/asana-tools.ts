@@ -93,6 +93,40 @@ export function registerAsanaTools(server: FastMCP) {
   });
 
   server.addTool({
+    name: "get-task",
+    description: "Get details of a specific Asana task",
+    parameters: z.object({
+      taskId: z.string().describe("Task ID to fetch details for")
+    }),
+    execute: async ({ taskId }) => {
+      console.debug(`Getting details for Asana task: ${taskId}`);
+      
+      try {
+        const result = await asanaService.getTask(taskId);
+        const task = result.data;
+        console.debug("Task retrieved successfully");
+        
+        let responseText = `## Task: ${task.name}\n\n`;
+        responseText += `**ID:** ${task.gid}\n`;
+        responseText += `**Status:** ${task.completed ? "Completed ✓" : "Incomplete ✗"}\n`;
+        responseText += `**Assignee:** ${task.assignee?.name || "Unassigned"}\n`;
+        responseText += `**Due Date:** ${task.due_on || "None"}\n`;
+        responseText += `**Created At:** ${task.created_at || "N/A"}\n`;
+        responseText += `**Modified At:** ${task.modified_at || "N/A"}\n\n`;
+        
+        if (task.notes) {
+          responseText += `### Description / Notes\n${task.notes}\n`;
+        }
+        
+        return responseText;
+      } catch (error: any) {
+        console.debug("Error getting task:", error);
+        throw new Error(`Error getting task: ${error.message || 'Unknown error'}`);
+      }
+    }
+  });
+
+  server.addTool({
     name: "update-task",
     description: "Update an existing Asana task",
     parameters: z.object({

@@ -1,0 +1,12 @@
+Asana MCP Server initialized
+Server is ready to handle requests
+Asana MCP Server running on stdio
+Listing subtasks for parent task: 1211167681449203
+Using Asana token from environment variables
+Using project ID from environment variables: 1210610641431409
+Using workspace ID from environment variables: 1210326343588572
+Asana API loaded successfully
+Asana API loaded successfully
+Listing subtasks for parent task 1211167681449203
+Found 0 subtasks
+[FastMCP warning] could not infer client capabilities after 10 attempts. Connection may be unstable.

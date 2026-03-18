@@ -1,3 +1,4 @@
+import "./console-override.js";
 import { FastMCP } from "fastmcp";
 import startServer from "./server/server.js";
 

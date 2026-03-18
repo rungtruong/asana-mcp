@@ -77,6 +77,24 @@ export class AsanaService {
     }
   }
 
+  async getTask(taskId: string) {
+    await this.ensureInitialized();
+    
+    if (this.asanaApi) {
+      return await this.asanaApi.getTask(taskId);
+    } else {
+      // Stub implementation
+      return {
+        data: {
+          gid: taskId,
+          name: "Example Task",
+          completed: false,
+          notes: "Task details..."
+        }
+      };
+    }
+  }
+
   async updateTask(taskId: string, updatedFields: any) {
     await this.ensureInitialized();
     
