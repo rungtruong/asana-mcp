@@ -65,6 +65,7 @@ npm start
 
 ### Task Management
 - `create-task` - Create a new Asana task
+- `get-task` - Get details of a specific Asana task
 - `list-tasks` - List tasks (optionally filtered by project)
 - `update-task` - Update an existing task
 - `delete-task` - Delete a task
